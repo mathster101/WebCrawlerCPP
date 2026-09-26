@@ -24,7 +24,7 @@ public:
     void crawl() override;
 
 private:
-    std::vector<std::string> pending_urls;
+    std::queue<std::string> pending_urls;
     std::unordered_set<std::string> seen_urls;
 };
 

@@ -11,14 +11,14 @@ using namespace std::chrono;
 
 void linearCrawler::seed_url(std::string seed)
 {
-    pending_urls.push_back(normalize_url(seed));
+    pending_urls.push(normalize_url(seed));
 }
 
 void linearCrawler::seed_url(std::vector<std::string> seeds)
 {
     for (auto url : seeds)
     {
-        pending_urls.push_back(normalize_url(url));
+        pending_urls.push(normalize_url(url));
     }
 }
 
@@ -30,9 +30,9 @@ void linearCrawler::crawl()
     long prev_size = 0;
     do
     {
-        std::string current_url = pending_urls[0];
+        std::string current_url = pending_urls.front();
         seen_urls.insert(current_url);
-        pending_urls.erase(pending_urls.begin());
+        pending_urls.pop();
 #if PRINT_URLS
         std::cout << "going to crawl from " << current_url << "\n";
 #endif
@@ -44,7 +44,7 @@ void linearCrawler::crawl()
         for (auto &url : urls)
         {
             if (seen_urls.find(url) == seen_urls.end())
-                pending_urls.push_back(url);
+                pending_urls.push(url);
         }
         steady_clock::time_point now_time = steady_clock::now();
         auto elapsed = duration_cast<milliseconds>(now_time - prev_time);

@@ -27,7 +27,7 @@ make
 
 ## Crawlers
 
-- **linearCrawler** — Single-threaded. Processes one URL at a time from a vector-based queue. Baseline for comparison.
+- **linearCrawler** — Single-threaded. Processes one URL at a time from a queue. Baseline for comparison.
 
 - **MasterSlaveCrawler** — A master thread distributes URLs from a shared pending queue to per-thread queues, randomly selecting idle slaves via a busy signal. Slaves pull from their own queue and self-terminate after 5s idle.
 
